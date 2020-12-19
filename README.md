@@ -18,7 +18,22 @@ Zeplin uri opener is a small, efficient way to get Zeplin App URI working on lin
 
 ## Installation
 
-- 🛠️ WIP
+The script will ask you to enter your system password, in order to put the script file in `/usr/local/bin`.
+
+```sh
+git clone --depth 1 https://github.com/sudosubin/zeplin-uri-opener.git
+cd zeplin-uri-opener
+bash ./install.sh
+```
+
+## Documentation
+
+- [URI Variations](./docs/uri-variations.md)
+
+## Development
+
+- Test with [Bats](https://github.com/bats-core/bats-core).
+- Lint with [ShellCheck](https://github.com/koalaman/shellcheck).
 
 ## License
 
