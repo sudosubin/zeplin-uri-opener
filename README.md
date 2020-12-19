@@ -6,7 +6,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/github/license/sudosubin/zeplin-uri-opener" alt="Repository License" />
-  <img src="https://img.shields.io/badge/platform-linux-brightgreen" alt="Supported Platforms" />
+  <img src="https://img.shields.io/badge/platform-linux%20%7C%20freebsd-lightgrey" alt="Supported Platforms" />
 </p>
 
 ## Description
@@ -14,6 +14,7 @@
 Zeplin uri opener is a small, efficient way to get Zeplin App URI working on linux.
 
 - **Limitation**: Zeplin does not provide a Linux desktop app. Linux users often get embarrassed when co-workers share Zeplin app uri instead of web url.
+- **Open URI in Browser**: Click the app uri, then your browser will open a zeplin web url.
 - **Compatible (WIP)**: All linux distros (even FreeBSD) using `xdg-open` will be able to use this opener. (Currently only tested on Ubuntu.)
 
 ## Installation
