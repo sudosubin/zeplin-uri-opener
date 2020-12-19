@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Zeplin Scheme Handler
-Exec=zpl-open.sh %u
+Exec=/usr/local/lib/zpl-open.sh %u
 StartupNotify=false
 MimeType=x-scheme-handler/zpl;
