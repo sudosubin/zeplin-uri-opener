@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# shellcheck source=../../src/open-zpl.sh
 opener() {
-  sh "$BATS_TEST_DIRNAME/../src/open-zpl.sh" "$*";
+  # do not open browser, just return web url string
+  sh "$BATS_TEST_DIRNAME/../src/zpl-open.sh" "--headless" "$*";
 }

@@ -1,11 +1,21 @@
 #!/bin/bash
 
-zpl_opener() {
-  # uri capture
-  local uri="$*";
+zpl_open() {
+  local uri;
+  local web;
+  local headless;
+
+  # check headless mode
+  if [ "$1" = "--headless" ]; then
+    uri="$2";
+    headless="true";
+  else
+    uri="$*";
+    headless="false";
+  fi
 
   # uri -> web
-  perl -e """
+  web=$(perl -e """
 
   use URI;
   use URI::QueryParam;
@@ -57,11 +67,17 @@ zpl_opener() {
   print \$web;
   print \"\n\";
 
-  """;
+  """);
+
+  if [ "$headless" = "true" ]; then
+    echo "$web";
+  else
+    xdg-open "$web";
+  fi
 }
 
 # execute function
-zpl_opener "$@"
+zpl_open "$@"
 
 # remove function
-unset -f zpl_opener
+unset -f zpl_open
