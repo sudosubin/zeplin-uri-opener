@@ -20,6 +20,10 @@ Zeplin uri opener is a small, efficient way to get Zeplin App URI working on lin
 
 - 🛠️ WIP
 
+## Documentation
+
+- [URI Variations](./docs/uri-variations.md)
+
 ## License
 
 Zeplin URI Opener is [MIT licensed](./LICENSE).
