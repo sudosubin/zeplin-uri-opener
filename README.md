@@ -24,6 +24,11 @@ Zeplin uri opener is a small, efficient way to get Zeplin App URI working on lin
 
 - [URI Variations](./docs/uri-variations.md)
 
+## Development
+
+- Test with [Bats](https://github.com/bats-core/bats-core).
+- Lint with [ShellCheck](https://github.com/koalaman/shellcheck).
+
 ## License
 
 Zeplin URI Opener is [MIT licensed](./LICENSE).
