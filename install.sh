@@ -9,7 +9,7 @@ install_zpl_opener() {
 
   # remove pre-installed files
   sudo rm "/usr/local/lib/zpl-open.sh";
-  rm "$HOME/.local/share/applications/zpl-opener.desktop";
+  rm -f "$HOME/.local/share/applications/zpl-opener.desktop";
 
   # copy files to local
   sudo cp "$root_dir/src/zpl-open.sh" "/usr/local/lib/zpl-open.sh";
@@ -18,7 +18,7 @@ install_zpl_opener() {
 
   # register opener
   xdg-mime default "$HOME/.local/share/applications/zpl-opener.desktop" \
-    "x-scheme-handler/zpl"
+    "x-scheme-handler/zpl";
 
   echo "installation complete!";
 }
