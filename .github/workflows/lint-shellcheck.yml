@@ -1,32 +1,17 @@
-name: Lint Shellcheck
+name: Lint
 
 on: [pull_request]
 
 jobs:
   shellcheck:
+    name: Shellcheck
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run lint (sh)
-        uses: reviewdog/action-shellcheck@v1
+      - name: Run lint
+        uses: ludeeus/action-shellcheck@master
         with:
-          path: "."
-          pattern: "*.sh"
-          exclude: "./.git/*"
-
-      - name: Run lint (bash)
-        uses: reviewdog/action-shellcheck@v1
-        with:
-          path: "."
-          pattern: "*.bash"
-          exclude: "./.git/*"
-
-      - name: Run lint (bats)
-        uses: reviewdog/action-shellcheck@v1
-        with:
-          path: "."
-          pattern: "*.bats"
-          exclude: "./.git/*"
+          additional_files: 'bats'
