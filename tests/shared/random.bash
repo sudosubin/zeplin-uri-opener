@@ -6,7 +6,7 @@ _random() {
   echo '';
 }
 
-# $1 - type of random string to generate (pid, seid, sid, tag)
+# $1 - type of random string to generate (oid, pid, seid, sid, tag)
 random() {
   _random 24;
 }
