@@ -44,6 +44,7 @@ zpl_open() {
   fi
 
   # parse uri authority(path)
+  # shellcheck disable=SC2034
   local -r authority="${BASH_REMATCH[3]}";
 
   # parse uri query
