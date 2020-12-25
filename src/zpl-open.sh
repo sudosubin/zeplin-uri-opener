@@ -55,14 +55,24 @@ zpl_open() {
     query="${query:${#BASH_REMATCH[0]}}";
   done
 
-  # validate pid
+  # validate oid or pid
   # shellcheck disable=SC2154
-  if [[ ${#args_pid[@]} -ne 1 ]]; then
+  if [[ ${#args_oid[@]} -ne 1 ]] && [[ ${#args_pid[@]} -ne 1 ]]; then
     return 1;
   fi
 
   # set web
-  web="https://app.zeplin.io/project/${args_pid[0]}";
+  web="https://app.zeplin.io";
+
+  # validate oid
+  if [[ ${#args_oid} -ne 0 ]]; then
+    web="$web/organization/${args_oid[0]}/projects";
+  fi
+
+  # validate pid
+  if [[ ${#args_pid} -ne 0 ]]; then
+    web="$web/project/${args_pid[0]}";
+  fi
 
   # validate sid
   # shellcheck disable=SC2154
