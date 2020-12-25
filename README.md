@@ -7,6 +7,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/license/sudosubin/zeplin-uri-opener" alt="Repository License" />
   <img src="https://img.shields.io/badge/platform-linux%20%7C%20freebsd-lightgrey" alt="Supported Platforms" />
+  <img src="https://github.com/sudosubin/zeplin-uri-opener/workflows/Test/badge.svg?branch=master" alt="Test Badge" />
 </p>
 
 ## Description
