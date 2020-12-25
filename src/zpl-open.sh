@@ -1,5 +1,22 @@
 #!/bin/bash
 
+expand_query_param() {
+  local uri="$1";
+  local key="$2";
+  local values=("${@:3}");
+  local -r pattern_check="\?";
+
+  for value in "${values[@]}"; do
+    if [[ $uri =~ $pattern_check ]]; then
+      uri="$uri&$key=$value";
+    else
+      uri="$uri?$key=$value";
+    fi
+  done
+
+  echo "$uri";
+}
+
 zpl_open() {
   local uri;
   local web;
@@ -8,68 +25,64 @@ zpl_open() {
   # check headless mode
   if [ "$1" = "--headless" ]; then
     uri="$2";
-    headless="true";
+    headless=true;
   else
     uri="$*";
-    headless="false";
+    headless=false;
   fi
 
-  # uri -> web
-  web=$(perl -e """
+  # default regex pattern
+  local -r pattern="^(([a-z]{3,5})://)([a-zA-Z0-9]+)(\?[^#]*)?$";
+  if [[ ! "$uri" =~ $pattern ]]; then
+    return 1;
+  fi
 
-  use URI;
-  use URI::QueryParam;
+  # parse uri schema
+  local -r schema="${BASH_REMATCH[2]}";
+  if [[ "$schema" != "zpl" ]]; then
+    return 1;
+  fi
 
-  \$uri = URI->new('$uri');
+  # parse uri authority(path)
+  local -r authority="${BASH_REMATCH[3]}";
 
-  # scheme validation
-  if (\$uri->scheme ne 'zpl') {
-      exit 1;
-  }
+  # parse uri query
+  local query="${BASH_REMATCH[4]}";
+  local -r pattern_query="^[?&]+([^= ]+)(=([^&]*))?";
 
-  # authority validation
-  if ((\$uri->authority ne 'project') && (\$uri->authority ne 'screen')) {
-      exit 1;
-  }
+  while [[ $query =~ $pattern_query ]]; do
+    eval "args_${BASH_REMATCH[1]}+=(${BASH_REMATCH[3]})";
+    query="${query:${#BASH_REMATCH[0]}}";
+  done
 
-  # query params
-  \$pid = \$uri->query_param('pid');
-  \$seid = \$uri->query_param('seid');
-  \$tag = \$uri->query_param('tag');
-  \$sid = \$uri->query_param('sid');
+  # validate pid
+  # shellcheck disable=SC2154
+  if [[ ${#args_pid[@]} -ne 1 ]]; then
+    return 1;
+  fi
 
-  # query params pid validation
-  if (\$pid eq '') {
-      exit 1;
-  }
+  # set web
+  web="https://app.zeplin.io/project/${args_pid[0]}";
 
-  \$web = URI->new('https://app.zeplin.io');
+  # validate sid
+  # shellcheck disable=SC2154
+  if [[ ${#args_sid} -ne 0 ]]; then
+    web="$web/screen/${args_sid[0]}";
+  fi
 
-  # screen uri
-  if (\$sid ne '') {
-      \$web->path_segments('project', \$pid, 'screen', \$sid);
-      print \$web;
-      print \"\n\";
-      exit 0;
-  }
+  # validate tag
+  # shellcheck disable=SC2154
+  if [[ ${#args_tag} -ne 0 ]]; then
+    web="$(expand_query_param "$web" "tag" "${args_tag[@]}")"
+  fi
 
-  # project uri
-  \$web->path_segments('project', \$pid);
+  # validate seid
+  # shellcheck disable=SC2154
+  if [[ ${#args_seid} -ne 0 ]]; then
+    web="$(expand_query_param "$web" "seid" "${args_seid[@]}")"
+  fi
 
-  if (\$seid ne '') {
-      \$web->query_param(seid => \$seid);
-  }
-
-  if (\$tag ne '') {
-      \$web->query_param(tag => \$tag);
-  }
-
-  print \$web;
-  print \"\n\";
-
-  """);
-
-  if [ "$headless" = "true" ]; then
+  if [ "$headless" = true ]; then
     echo "$web";
   else
     xdg-open "$web";
@@ -80,4 +93,5 @@ zpl_open() {
 zpl_open "$@"
 
 # remove function
+unset -f expand_query_param
 unset -f zpl_open
