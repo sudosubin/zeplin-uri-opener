@@ -84,13 +84,13 @@ zpl_open() {
   # validate tag
   # shellcheck disable=SC2154
   if [[ ${#args_tag} -ne 0 ]]; then
-    web="$(expand_query_param "$web" "tag" "${args_tag[@]}")"
+    web="$(expand_query_param "$web" "tag" "${args_tag[@]}")";
   fi
 
   # validate seid
   # shellcheck disable=SC2154
   if [[ ${#args_seid} -ne 0 ]]; then
-    web="$(expand_query_param "$web" "seid" "${args_seid[@]}")"
+    web="$(expand_query_param "$web" "seid" "${args_seid[@]}")";
   fi
 
   if [ "$headless" = true ]; then
@@ -101,8 +101,8 @@ zpl_open() {
 }
 
 # execute function
-zpl_open "$@"
+zpl_open "$@";
 
 # remove function
-unset -f expand_query_param
-unset -f zpl_open
+unset -f expand_query_param;
+unset -f zpl_open;
