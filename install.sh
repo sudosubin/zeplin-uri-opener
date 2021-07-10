@@ -13,8 +13,7 @@ install_zpl_opener() {
     "$HOME/.local/share/applications/zpl-opener.desktop";
 
   # register opener
-  xdg-mime default "$HOME/.local/share/applications/zpl-opener.desktop" \
-    "x-scheme-handler/zpl";
+  xdg-mime default "zpl-opener.desktop" "x-scheme-handler/zpl";
 
   echo "installation complete!";
 }
