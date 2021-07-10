@@ -28,6 +28,12 @@ cd zeplin-uri-opener
 bash ./install.sh
 ```
 
+You also need to export your `$PATH` to include `$HOME/bin`.
+
+```sh
+export PATH="$PATH:$HOME/bin"
+```
+
 ## Documentation
 
 - [URI Variations](./docs/uri-variations.md)
