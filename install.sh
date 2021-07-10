@@ -4,16 +4,11 @@ install_zpl_opener() {
   local root_dir;
   root_dir="$(dirname "${BASH_SOURCE[0]}")";
 
-  # make script executable
-  chmod +x "$root_dir/src/zpl-open.sh";
-
-  # remove pre-installed files
-  sudo rm -f "/usr/local/lib/zpl-open.sh";
-  rm -f "$HOME/.local/share/applications/zpl-opener.desktop";
-
-  # copy files to local
+  # copy files
+  mkdir -p "$HOME/bin"
   mkdir -p "$HOME/.local/share/applications";
-  sudo cp "$root_dir/src/zpl-open.sh" "/usr/local/lib/zpl-open.sh";
+
+  cp "$root_dir/src/zpl-open" "$HOME/bin/zpl-open";
   cp "$root_dir/src/zpl-opener.desktop" \
     "$HOME/.local/share/applications/zpl-opener.desktop";
 
